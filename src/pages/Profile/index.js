@@ -39,6 +39,9 @@ export default class Profile extends Component {
                     <View style={styles.itemProfile}>
                         <IconAbout />
                         <Text style={styles.labelItem}>Tentan Aplikasi</Text>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('About')} style={styles.btnAbout}>
+                            <Text style={styles.text}>Look out</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} style={styles.btnLogOut}>
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     labelItem: {
-        marginTop: -50,
+        marginTop: -55,
         marginLeft: 60,
         fontSize: 20,
         color: "white"
@@ -98,13 +101,24 @@ const styles = StyleSheet.create({
         color: "#50D9EA"
     },
     btnLogOut: {
-        marginHorizontal: 50,
+        marginHorizontal: 30,
         alignItems: 'center',
         height: 45,
         borderRadius: 25,
         backgroundColor: '#432577',
         justifyContent: 'center',
-        marginTop: 40
+        marginTop: 25
+    },
+    btnAbout: {
+        paddingHorizontal: 5,
+        marginLeft: 60,
+        alignItems: 'center',
+        height: 35,
+        width: 150,
+        borderRadius: 8,
+        backgroundColor: '#51adcf',
+        justifyContent: 'center',
+        marginTop: 10
     },
     text: {
         color: 'rgba(255, 255, 255, 0.7)',

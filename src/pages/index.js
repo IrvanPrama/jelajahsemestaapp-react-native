@@ -4,6 +4,7 @@ import Profile from './Profile'
 import Splash from './Splash'
 import Login from './Login'
 import SignUp from './SignUp'
+import About from './About'
 
 
-export { Home, Jelajah, Profile, Splash, Login, SignUp }
+export { Home, Jelajah, Profile, Splash, Login, SignUp, About }
