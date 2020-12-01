@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "668286530154",
+    "firebase_url": "https://jelajah-semesta-app.firebaseio.com",
+    "project_id": "jelajah-semesta-app",
+    "storage_bucket": "jelajah-semesta-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668286530154:android:b25b474fe42316a19cd013",
+        "android_client_info": {
+          "package_name": "com.jelajahsemestaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668286530154-gosqso7af2u11t9877q6ujr6manl4onk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVYysNUbEljsErkq4_bqEXBw5zgsNVpZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668286530154-gosqso7af2u11t9877q6ujr6manl4onk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
