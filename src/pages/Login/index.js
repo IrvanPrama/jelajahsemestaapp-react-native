@@ -1,98 +1,69 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, Image, Dimensions, Alert, Input, Item } from 'react-native';
-import bgImage from '../../assets/images/image.jpg';
-import logo from '../../assets/images/logo.png';
-import { faEyeSlash, faLock, faUserAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import React, { useState, useContext } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, Image, Dimensions } from 'react-native';
+import bgImage from '../../assets/images/image.jpg'
+import logo from '../../assets/images/logo.png'
+import { faEyeSlash, faLock, faRegistered, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { AuthContext } from '../../router/AuthProvider'
 
 const { width: WIDTH } = Dimensions.get('window')
-export default class Login extends Component {
+const Login = ({ router }) => {
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [confirPassword, setConfirmPassword] = useState();
 
-    constructor(props) {
-        super(props);
+    const { login } = useContext(AuthContext);
+    return (
+        <ImageBackground source={bgImage} style={styles.backgroundContainer}>
+            <View
+                style={styles.logoContainer}>
 
-        this.state = {
-            username: "",
-            password: "",
-        }
-    }
+                <Image source={logo} style={styles.logo} />
 
-    myValidate = () => {
-        const { username, password } = this.state;
-        if (username == "" && password == "") {
-            Alert.alert('Harap mengisi kolom Username dan Password');
-        }
-        else if (username != "deivan" && password != "youtube") {
-            Alert.alert('Account Tidak Ditemukan');
-        }
-        else if (username == "deivan" && password == "") {
-            Alert.alert('Password Bemum Dimasukan');
-        }
-        else if (username == "" && password == "youtube") {
-            Alert.alert('Username Belum Dimasukan');
-        }
-        else if (username == "deivan" && password == "youtube") {
-            Alert.alert('Anda Berhasil Login');
-            this.props.navigation.navigate('MainApp');
-        }
-        else {
-            Alert.alert('Account tidak ditemukan');
-        }
-    }
+            </View>
+            <View>
+                <FontAwesomeIcon icon={faUserAlt} style={styles.inputIcon} size={20} color={'white'} />
 
+                <TextInput
+                    style={styles.input}
+                    labelValue={email}
+                    placeholder={'Email'}
+                    onChangeText={(userEmail) => setEmail(userEmail)}
+                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                    underlineColorAndroid={'transparent'}
+                />
+            </View>
 
-    render() {
-        return (
-            <ImageBackground source={bgImage} style={styles.backgroundContainer}>
-                <View
-                    style={styles.logoContainer}>
-
-                    <Image source={logo} style={styles.logo} />
-
-                </View>
-                <View>
-                    <FontAwesomeIcon icon={faUserAlt} style={styles.inputIcon} size={20} color={'white'} />
-
-                    <TextInput
-                        autoCapitalize="none"
-                        style={styles.input}
-                        placeholder={'username'}
-                        onChangeText={username => this.setState({ username })}
-                        placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                        underlineColorAndroid={'transparent'}
-                    />
-                </View>
-
-                <View>
-                    <FontAwesomeIcon icon={faLock} style={styles.inputIcon} size={20} color={'white'} />
-                    <TextInput
-                        autoCapitalize="none"
-                        style={styles.input}
-                        placeholder={'password'}
-                        secureTextEntry={true}
-                        onChangeText={password => this.setState({ password })}
-                        placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                        underlineColorAndroid={'transparent'}
-                    />
-                    <TouchableOpacity style={styles.btnEye}>
-                        <FontAwesomeIcon
-                            icon={faEyeSlash}
-                            size={20}
-                            color={'rgba(255, 255, 255, 0.7)'} />
-                    </TouchableOpacity>
-                </View>
-
-
-                <TouchableOpacity onPress={this.myValidate} style={styles.btnLogin}>
-                    <Text style={styles.text}>Login</Text>
+            <View>
+                <FontAwesomeIcon icon={faLock} style={styles.inputIcon} size={20} color={'white'} />
+                <TextInput
+                    style={styles.input}
+                    labelValue={password}
+                    onChangeText={(userPassword) => setPassword(userPassword)}
+                    placeholder={'Password'}
+                    secureTextEntry={true}
+                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                    underlineColorAndroid={'transparent'}
+                />
+                <TouchableOpacity style={styles.btnEye}>
+                    <FontAwesomeIcon
+                        icon={faEyeSlash}
+                        size={20}
+                        color={'rgba(255, 255, 255, 0.7)'} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('SignUp')}>
-                    <Text style={styles.text}>Sign Up</Text>
-                </TouchableOpacity>
-            </ImageBackground>
-        );
-    }
+            </View>
+
+
+            <TouchableOpacity onPress={() => login(email, password)} style={styles.btnLogin}>
+                <Text style={styles.text}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('SignUp')}>
+                <Text style={styles.text}>Sign Up</Text>
+            </TouchableOpacity>
+        </ImageBackground>
+    );
 }
+export default Login;
 
 const styles = StyleSheet.create({
     backgroundContainer: {

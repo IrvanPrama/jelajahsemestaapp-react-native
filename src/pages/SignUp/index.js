@@ -1,106 +1,91 @@
-import React, { Component } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, Image, Dimensions } from 'react-native';
 import bgImage from '../../assets/images/image.jpg'
 import logo from '../../assets/images/logo.png'
-import { faEyeSlash, faLock, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { faEyeSlash, faLock, faRegistered, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-// import {
-//     emailValidator,
-//     passwordValidator,
-//     nameValidator
-// } from "../core/utils";
+import { AuthContext } from '../../router/AuthProvider'
 
 const { width: WIDTH } = Dimensions.get('window')
-export default class SignUp extends Component {
+const SignUp = ({ router }) => {
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [confirPassword, setConfirmPassword] = useState();
 
-    constructor(props) {
-        super(props)
+    const { register } = useContext(AuthContext);
+    return (
+        <ImageBackground source={bgImage} style={styles.backgroundContainer}>
+            <View
+                style={styles.logoContainer}>
 
-        this.state = {
-            username: '',
-            password: '',
-            showPass: false,
-        }
-    }
+                <Image source={logo} style={styles.logo} />
 
-    show = () => {
-        this.setState({
-            showPass: true
-        })
-    }
+            </View>
+            <View>
+                <FontAwesomeIcon icon={faUserAlt} style={styles.inputIcon} size={20} color={'white'} />
 
-    render() {
-        const { username, password } = this.state;
-        return (
-            <ImageBackground source={bgImage} style={styles.backgroundContainer}>
-                <View
-                    style={styles.logoContainer}>
+                <TextInput
+                    style={styles.input}
+                    labelValue={email}
+                    placeholder={'Email'}
+                    onChangeText={(userEmail) => setEmail(userEmail)}
+                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                    underlineColorAndroid={'transparent'}
+                />
+            </View>
 
-                    <Image source={logo} style={styles.logo} />
-
-                </View>
-                <View>
-                    <FontAwesomeIcon icon={faUserAlt} style={styles.inputIcon} size={20} color={'white'} />
-
-                    <TextInput
-                        style={styles.input}
-                        value={username}
-                        placeholder={'Username'}
-                        onChangeText={(username) => this.setState({ username })}
-                        placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                        underlineColorAndroid={'transparent'}
-                    />
-                </View>
-
-                <View>
-                    <FontAwesomeIcon icon={faLock} style={styles.inputIcon} size={20} color={'white'} />
-                    <TextInput
-                        style={styles.input}
-                        value={password}
-                        placeholder={'Password'}
-                        secureTextEntry={true}
-                        onChangeText={(password) => this.setState({ password })}
-                        placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                        underlineColorAndroid={'transparent'}
-                    />
-                    <TouchableOpacity style={styles.btnEye}>
-                        <FontAwesomeIcon
-                            icon={faEyeSlash}
-                            size={20}
-                            color={'rgba(255, 255, 255, 0.7)'} />
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <FontAwesomeIcon icon={faLock} style={styles.inputIcon} size={20} color={'white'} />
-                    <TextInput
-                        style={styles.input}
-                        value={password}
-                        placeholder={'Re Type Password'}
-                        secureTextEntry={true}
-                        onChangeText={(password) => this.setState({ password })}
-                        placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                        underlineColorAndroid={'transparent'}
-                    />
-                    <TouchableOpacity style={styles.btnEye}>
-                        <FontAwesomeIcon
-                            icon={faEyeSlash}
-                            size={20}
-                            color={'rgba(255, 255, 255, 0.7)'} />
-                    </TouchableOpacity>
-                </View>
-
-                <TouchableOpacity style={styles.btnSignUp} onPress={() => this.props.navigation.navigate('Login')}>
-                    <Text style={styles.text}>Sign Up</Text>
+            <View>
+                <FontAwesomeIcon icon={faLock} style={styles.inputIcon} size={20} color={'white'} />
+                <TextInput
+                    style={styles.input}
+                    labelValue={password}
+                    onChangeText={(userPassword) => setPassword(userPassword)}
+                    placeholder={'Password'}
+                    secureTextEntry={true}
+                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                    underlineColorAndroid={'transparent'}
+                />
+                <TouchableOpacity style={styles.btnEye}>
+                    <FontAwesomeIcon
+                        icon={faEyeSlash}
+                        size={20}
+                        color={'rgba(255, 255, 255, 0.7)'} />
                 </TouchableOpacity>
+            </View>
 
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
-                    <Text style={styles.text}>Already Have an Account? Login</Text>
+            <View>
+                <FontAwesomeIcon icon={faLock} style={styles.inputIcon} size={20} color={'white'} />
+                <TextInput
+                    style={styles.input}
+                    labelValue={password}
+                    onChangeText={(userPassword) => setPassword(userPassword)}
+                    placeholder={'Re Type Password'}
+                    secureTextEntry={true}
+                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                    underlineColorAndroid={'transparent'}
+                />
+                <TouchableOpacity style={styles.btnEye}>
+                    <FontAwesomeIcon
+                        icon={faEyeSlash}
+                        size={20}
+                        color={'rgba(255, 255, 255, 0.7)'} />
                 </TouchableOpacity>
+            </View>
 
-            </ImageBackground>
-        )
-    }
+            <TouchableOpacity style={styles.btnSignUp} onPress={() => register(email, password)}>
+                <Text style={styles.text}>Sign Up</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                <Text style={styles.text}>Already Have an Account? Login</Text>
+            </TouchableOpacity>
+
+        </ImageBackground>
+    )
 }
+
+export default SignUp;
+
 const styles = StyleSheet.create({
     backgroundContainer: {
         flex: 1,

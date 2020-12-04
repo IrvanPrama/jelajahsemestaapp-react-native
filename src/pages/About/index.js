@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, ScrollView, Image } from 'react-native'
+import { AuthContext } from '../../router/AuthProvider'
 
 const About = () => {
     return (

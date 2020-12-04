@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
+import { AuthContext } from '../../router/AuthProvider'
 import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import bgImage from '../../assets/images/image.jpg';
 import {
@@ -7,50 +8,49 @@ import {
     IconAbout,
     IconStatus
 } from '../../assets';
-export default class Profile extends Component {
+const Profil = () => {
+    const { user, logout } = useContext(AuthContext);
+    return (
+        <ImageBackground source={bgImage} style={styles.backgroundContainer}>
+            <View
+                style={styles.logoContainer}>
 
-
-    render() {
-        return (
-            <ImageBackground source={bgImage} style={styles.backgroundContainer}>
-                <View
-                    style={styles.logoContainer}>
-
-                    <Image source={require("../../assets/profile/profile.jpg")} style={styles.imgprofile} />
-                    <Text style={styles.name}>De Ivan</Text>
-                    <Text style={styles.username}>@deivan</Text>
+                <Image source={require("../../assets/profile/profile.jpg")} style={styles.imgprofile} />
+                <Text style={styles.name}>{user.uid}</Text>
+                <Text style={styles.username}>@deivan</Text>
+            </View>
+            <View style={styles.containerProfile}>
+                <View style={styles.itemProfile}>
+                    <IconEffort />
+                    <Text style={styles.labelItem}>Pencapaian</Text>
+                    <Text style={styles.subLabelItem}>24 book</Text>
                 </View>
-                <View style={styles.containerProfile}>
-                    <View style={styles.itemProfile}>
-                        <IconEffort />
-                        <Text style={styles.labelItem}>Pencapaian</Text>
-                        <Text style={styles.subLabelItem}>24 book</Text>
-                    </View>
-                    <View style={styles.itemProfile}>
-                        <IconStatus />
-                        <Text style={styles.labelItem}>Status</Text>
-                        <Text style={styles.subLabelItem}>Reader</Text>
-                    </View>
-                    <View style={styles.itemProfile}>
-                        <IconEditProfile />
-                        <Text style={styles.labelItem}>Edit Profil</Text>
-                        <Text style={styles.subLabelItem}>24 book</Text>
-                    </View>
-                    <View style={styles.itemProfile}>
-                        <IconAbout />
-                        <Text style={styles.labelItem}>Tentan Aplikasi</Text>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('About')} style={styles.btnAbout}>
-                            <Text style={styles.text}>Look out</Text>
-                        </TouchableOpacity>
-                    </View>
+                <View style={styles.itemProfile}>
+                    <IconStatus />
+                    <Text style={styles.labelItem}>Status</Text>
+                    <Text style={styles.subLabelItem}>Reader</Text>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} style={styles.btnLogOut}>
-                    <Text style={styles.text}>Log Out</Text>
-                </TouchableOpacity>
-            </ImageBackground>
-        );
-    }
+                <View style={styles.itemProfile}>
+                    <IconEditProfile />
+                    <Text style={styles.labelItem}>Edit Profil</Text>
+                    <Text style={styles.subLabelItem}>24 book</Text>
+                </View>
+                <View style={styles.itemProfile}>
+                    <IconAbout />
+                    <Text style={styles.labelItem}>Tentan Aplikasi</Text>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('About')} style={styles.btnAbout}>
+                        <Text style={styles.text}>Look out</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <TouchableOpacity onPress={() => logout()} style={styles.btnLogOut}>
+                <Text style={styles.text}>Log Out</Text>
+            </TouchableOpacity>
+        </ImageBackground>
+    );
 }
+
+export default Profil;
 
 const styles = StyleSheet.create({
     backgroundContainer: {

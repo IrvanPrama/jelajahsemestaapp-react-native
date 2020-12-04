@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,8 +12,10 @@ import { PalingDisukai } from '../../components/';
 import ButtonIcon from '../../components/ButtonIcon';
 import { WARNA_ABU_ABU } from '../../utils/constant';
 import { ScrollView } from 'react-native-gesture-handler';
+import { AuthContext } from '../../router/AuthProvider';
 
 const Home = () => {
+  const { user } = useContext(AuthContext);
   return (
     <View style={styles.page}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -21,7 +23,7 @@ const Home = () => {
           <Image source={Logo} style={styles.logo} />
           <View style={styles.hello}>
             <Text style={styles.selamat}>Selamat Datang, </Text>
-            <Text style={styles.username}>Deivan</Text>
+            <Text style={styles.username}>Wawan</Text>
           </View>
         </ImageBackground>
         <View style={styles.layanan}>
